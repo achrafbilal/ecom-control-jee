@@ -1,0 +1,62 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="/">Navbar</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="secService.profile">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" routerLink="/user/products"
+            >Products</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" routerLink="/user/customers"
+            >Customers</a
+          >
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" routerLink="/user/bills"
+            >Bills</a
+          >
+        </li>
+        <li class="nav-item" style="cursor: pointer">
+          <a class="nav-link" aria-current="page" (click)="handleBack()"
+            >Back</a
+          >
+        </li>
+      </ul>
+      <ul class="navbar-nav mb-2 mb-lg-0" *ngIf="secService.profile">
+        <li class="list-item">
+          <a class="nav-link disabled" aria-current="page">
+            {{
+              secService.profile.firstName + " " + secService.profile.lastName
+            }}
+          </a>
+        </li>
+        <li class="list-item" (click)="handleLogout()">
+          <a class="btn nav-link"> <i class="bi bi-box-arrow-right"></i> </a>
+        </li>
+      </ul>
+      <ng-template #loginTemplate>
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <li class="list-item" (click)="handleLogin()">
+            <a class="btn nav-link"> Login </a>
+          </li>
+        </ul>
+      </ng-template>
+    </div>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>

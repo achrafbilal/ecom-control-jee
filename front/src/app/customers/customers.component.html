@@ -1,0 +1,82 @@
+<div class="container">
+  <nav
+    class="p-2 m-2 border border-info"
+    *ngIf="authService.hasRoleIn([]) || true"
+  >
+    <button class="btn btn-outline-info" (click)="handleNewCustomer()">
+      New customer
+    </button>
+  </nav>
+  <ng-template #errors>
+    <div class="text-danger">{{ errorMessage }}</div>
+  </ng-template>
+  <div class="card" *ngIf="customers; else errors">
+    <div class="card-header">Customers List</div>
+    <div class="card-body">
+      <form
+        class="form"
+        [formGroup]="searchFormGroup"
+        (ngSubmit)="handleSearchPageCustomersByKeyword()"
+      >
+        <div class="input-group">
+          <label class="input-group-text">Keyword</label>
+          <input type="text" class="form-control" formControlName="keyword" />
+          <button class="btn btn-info">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </form>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Customer name</th>
+            <th>Customer price</th>
+            <th>Bills</th>
+            <th colspan="2"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of customers">
+            <td>{{ p.id }}</td>
+            <td>{{ p.name }}</td>
+            <td>{{ p.email }}</td>
+
+            <td *ngIf="authService.hasRoleIn([]) || true">
+              <button
+                (click)="handleCustomerBills(p.id)"
+                class="btn btn-outline-dark"
+              >
+                <i class="bi bi-currency-dollar"></i>
+              </button>
+            </td>
+            <td *ngIf="authService.hasRoleIn([]) || true">
+              <button (click)="handleEditCustomer(p)" class="btn btn-warning">
+                <i class="bi bi-pencil"></i>
+              </button>
+            </td>
+            <td *ngIf="authService.hasRoleIn([]) || true">
+              <button (click)="handleDeleteCustomer(p)" class="btn btn-danger">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        <div class="container">{{ currentPage + 1 }} / {{ totalPages }}</div>
+        <div class="container">{{ pageSize }} per page</div>
+      </table>
+      <ul class="nav nav-pills">
+        <li
+          class="btn ms-1 mt-1"
+          (click)="
+            handleGetPageCustomer(searchFormGroup.value.keyword, i, pageSize)
+          "
+          *ngFor="let item of [].constructor(this.totalPages); let i = index"
+          [ngClass]="i === currentPage ? 'btn-info' : 'btn-outline-info'"
+        >
+          {{ i + 1 }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

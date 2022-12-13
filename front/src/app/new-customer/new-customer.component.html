@@ -1,0 +1,58 @@
+<div class="container mt-3 col-md-6 offset-md-3">
+  <div
+    *ngIf="message.length > 0"
+    class="alert alert-success alert-dismissible fade show"
+    role="alert"
+  >
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+      <span class="sr-only" (click)="handleCloseAlert()">Close</span>
+    </button>
+    <strong>
+      {{ message }}
+    </strong>
+  </div>
+  <form
+    [formGroup]="customerFormGroup"
+    (ngSubmit)="handleAddCustomerFormSubmit()"
+  >
+    <div class="mb-3">
+      <label class="form-label">Customer name</label>
+      <input type="text" formControlName="name" class="form-control" />
+      <small
+        class="text-danger"
+        *ngIf="
+          customerFormGroup.controls['name'].errors &&
+          customerFormGroup.controls['name'].touched
+        "
+      >
+        {{ getErrorMessage("Name", customerFormGroup.controls["name"].errors) }}
+      </small>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Customer email</label>
+      <input type="email" formControlName="email" class="form-control" />
+      <small
+        class="text-danger"
+        *ngIf="
+          customerFormGroup.controls['email'].errors &&
+          customerFormGroup.controls['email'].touched
+        "
+      >
+        {{
+          getErrorMessage("Email", customerFormGroup.controls["email"].errors)
+        }}
+      </small>
+    </div>
+
+    <div class="mb-3">
+      <button
+        type="submit"
+        class="btn btn-outline-success"
+        [disabled]="!customerFormGroup.valid"
+      >
+        Add customer
+      </button>
+    </div>
+  </form>
+</div>

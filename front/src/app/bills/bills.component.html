@@ -1,0 +1,60 @@
+<div class="container">
+  <nav
+    class="p-2 m-2 border border-info"
+    *ngIf="authService.hasRoleIn([]) || true"
+  >
+    <button class="btn btn-outline-info" (click)="handleNewBill()">
+      New bill
+    </button>
+  </nav>
+  <ng-template #errors>
+    <div class="text-danger">{{ errorMessage }}</div>
+  </ng-template>
+  <div class="card" *ngIf="bills; else errors">
+    <div class="card-header">Bills List</div>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Billing date</th>
+            <th colspan="2"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of bills">
+            <td>{{ p.id }}</td>
+            <td>{{ p.billingDate }}</td>
+            <td *ngIf="authService.hasRoleIn([]) || true">
+              <button (click)="handleShowBill(p)" class="btn btn-info">
+                <i class="bi bi-eye-fill"></i>
+              </button>
+            </td>
+            <td *ngIf="authService.hasRoleIn([]) || true">
+              <button (click)="handleEditBill(p)" class="btn btn-warning">
+                <i class="bi bi-pencil"></i>
+              </button>
+            </td>
+            <td *ngIf="authService.hasRoleIn([]) || true">
+              <button (click)="handleDeleteBill(p)" class="btn btn-danger">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        <div class="container">{{ currentPage + 1 }} / {{ totalPages }}</div>
+        <div class="container">{{ pageSize }} per page</div>
+      </table>
+      <ul class="nav nav-pills">
+        <li
+          class="btn ms-1 mt-1"
+          (click)="handleGetPageBill(i, pageSize)"
+          *ngFor="let item of [].constructor(this.totalPages); let i = index"
+          [ngClass]="i === currentPage ? 'btn-info' : 'btn-outline-info'"
+        >
+          {{ i + 1 }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

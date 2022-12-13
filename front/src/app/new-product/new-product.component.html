@@ -1,0 +1,77 @@
+<div class="container mt-3 col-md-6 offset-md-3">
+  <div
+    *ngIf="message.length > 0"
+    class="alert alert-success alert-dismissible fade show"
+    role="alert"
+  >
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+      <span class="sr-only" (click)="handleCloseAlert()">Close</span>
+    </button>
+    <strong>
+      {{ message }}
+    </strong>
+  </div>
+  <form
+    [formGroup]="productFormGroup"
+    (ngSubmit)="handleAddProductFormSubmit()"
+  >
+    <div class="mb-3">
+      <label class="form-label">Product name</label>
+      <input type="text" formControlName="name" class="form-control" />
+      <small
+        class="text-danger"
+        *ngIf="
+          productFormGroup.controls['name'].errors &&
+          productFormGroup.controls['name'].touched
+        "
+      >
+        {{ getErrorMessage("Name", productFormGroup.controls["name"].errors) }}
+      </small>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Product price</label>
+      <input type="number" formControlName="price" class="form-control" />
+      <small
+        class="text-danger"
+        *ngIf="
+          productFormGroup.controls['price'].errors &&
+          productFormGroup.controls['price'].touched
+        "
+      >
+        {{
+          getErrorMessage("Price", productFormGroup.controls["price"].errors)
+        }}
+      </small>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Product quantity in stock</label>
+      <input type="number" formControlName="quantity" class="form-control" />
+      <small
+        class="text-danger"
+        *ngIf="
+          productFormGroup.controls['quantity'].errors &&
+          productFormGroup.controls['quantity'].touched
+        "
+      >
+        {{
+          getErrorMessage(
+            "Quantity",
+            productFormGroup.controls["quantity"].errors
+          )
+        }}
+      </small>
+    </div>
+    <div class="mb-3">
+      <button
+        type="submit"
+        class="btn btn-outline-success"
+        [disabled]="!productFormGroup.valid"
+      >
+        Add product
+      </button>
+    </div>
+  </form>
+</div>
