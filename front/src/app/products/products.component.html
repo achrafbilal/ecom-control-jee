@@ -15,6 +15,7 @@
     <div class="card-body">
       <form
         class="form"
+        *ngIf="searchFormGroup"
         [formGroup]="searchFormGroup"
         (ngSubmit)="handleSearchPageProductsByKeyword()"
       >

@@ -45,23 +45,25 @@ export class BillsComponent implements OnInit {
   }
 
   async handleDeleteBill(bill: Bill) {
-    if (confirm("Are you sure you want to delete this bill")) {
-      this.billService.deleteBill(bill.id).subscribe((d) => {
-        this.billService
-          .getPageBills(this.currentPage, this.pageSize)
-          .subscribe({
-            next: (data) => {
-              const { content, number, size, totalPages, totalElements } = data;
-              this.bills = content;
-              this.currentPage = number;
-              this.pageSize = size;
-              this.totalPages = totalPages;
-              this.totalElements = totalElements;
-            },
-            error: (error) => (this.errorMessage = error.message),
-          });
-      });
-    }
+    if (bill.id)
+      if (confirm("Are you sure you want to delete this bill")) {
+        this.billService.deleteBill(bill.id).subscribe((d) => {
+          this.billService
+            .getPageBills(this.currentPage, this.pageSize)
+            .subscribe({
+              next: (data) => {
+                const { content, number, size, totalPages, totalElements } =
+                  data;
+                this.bills = content;
+                this.currentPage = number;
+                this.pageSize = size;
+                this.totalPages = totalPages;
+                this.totalElements = totalElements;
+              },
+              error: (error) => (this.errorMessage = error.message),
+            });
+        });
+      }
   }
   roundNumber = (value: number) => {
     return Math.round(value);

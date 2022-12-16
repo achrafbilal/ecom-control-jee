@@ -6,7 +6,7 @@ import { AppComponent } from "./app.component";
 import { ProductsComponent } from "./products/products.component";
 import { CustomersComponent } from "./customers/customers.component";
 import { BillsComponent } from "./bills/bills.component";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NewProductComponent } from "./new-product/new-product.component";
 import { EditProductComponent } from "./edit-product/edit-product.component";
 import { EditCustomerComponent } from "./edit-customer/edit-customer.component";
@@ -54,6 +54,7 @@ export function kcFactory(kcService: KeycloakService) {
     ReactiveFormsModule,
     HttpClientModule,
     KeycloakAngularModule,
+    FormsModule,
   ],
   providers: [
     {

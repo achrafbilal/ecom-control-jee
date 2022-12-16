@@ -36,7 +36,16 @@ export class ProductsComponent implements OnInit {
   async handleDeleteProduct(product: Product) {
     if (confirm("Are you sure you want to delete this product")) {
       this.productService.deleteProduct(product.id).subscribe((d) => {
-        this.productService.getPageProductsByKeyword();
+        this.productService.getPageProductsByKeyword().subscribe({
+          next: (data) => {
+            this.products = data._embedded.products;
+            this.currentPage = data.page.number;
+            this.pageSize = data.page.size;
+            this.totalPages = data.page.totalPages;
+            this.totalElements = data.page.totalElements;
+          },
+          error: (error) => (this.errorMessage = error.message),
+        });
       });
     }
   }

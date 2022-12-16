@@ -12,7 +12,11 @@
       {{ message }}
     </strong>
   </div>
-  <form [formGroup]="billFormGroup" (ngSubmit)="handleEditBillFormSubmit()">
+  <form
+    *ngIf="billFormGroup"
+    [formGroup]="billFormGroup"
+    (ngSubmit)="handleEditBillFormSubmit()"
+  >
     <div class="mb-3">
       <label class="form-label">Bill ID</label>
       <input type="text" formControlName="id" class="form-control" readonly />

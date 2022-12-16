@@ -28,12 +28,10 @@ export class EditProductComponent implements OnInit {
     this.productID = Number(this.router.snapshot.params["id"]);
     this.productService.getProductById(this.productID).subscribe({
       next: (product) => {
+        console.log(product);
         this.productFormGroup = this.fb.group({
           id: this.fb.control(product.id),
-          name: this.fb.control(product.name, [
-            Validators.required,
-            Validators.minLength(2),
-          ]),
+          name: this.fb.control(product.name, [Validators.required]),
           price: this.fb.control(product.price, [
             Validators.required,
             Validators.min(1),

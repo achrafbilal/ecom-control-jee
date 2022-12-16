@@ -36,7 +36,16 @@ export class CustomersComponent implements OnInit {
   async handleDeleteCustomer(customer: Customer) {
     if (confirm("Are you sure you want to delete this customer")) {
       this.customerService.deleteCustomer(customer.id).subscribe((d) => {
-        this.customerService.getPageCustomersByKeyword();
+        this.customerService.getPageCustomersByKeyword().subscribe({
+          next: (data) => {
+            this.customers = data._embedded.customers;
+            this.currentPage = data.page.number;
+            this.pageSize = data.page.size;
+            this.totalPages = data.page.totalPages;
+            this.totalElements = data.page.totalElements;
+          },
+          error: (error) => (this.errorMessage = error.message),
+        });
       });
     }
   }

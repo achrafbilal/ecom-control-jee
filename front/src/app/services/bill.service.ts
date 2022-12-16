@@ -23,11 +23,8 @@ export class BillService implements OnInit {
     );
   }
 
-  public addBill(name: string, email: string): Observable<Bill> {
-    return this.httpClient.post<Bill>(`${this.BaseURI}`, {
-      name: name,
-      email: email,
-    });
+  public addBill(bill: Bill): Observable<Bill> {
+    return this.httpClient.post<Bill>(`${this.BaseURI}`, bill);
   }
 
   public editBill(id: number, name: string, email: string): Observable<Bill> {

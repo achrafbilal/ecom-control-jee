@@ -13,6 +13,7 @@
     </strong>
   </div>
   <form
+    *ngIf="customerFormGroup"
     [formGroup]="customerFormGroup"
     (ngSubmit)="handleEditCustomerFormSubmit()"
   >

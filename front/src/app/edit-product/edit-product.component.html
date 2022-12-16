@@ -13,6 +13,7 @@
     </strong>
   </div>
   <form
+    *ngIf="productFormGroup"
     [formGroup]="productFormGroup"
     (ngSubmit)="handleEditProductFormSubmit()"
   >
@@ -37,7 +38,7 @@
 
     <div class="mb-3">
       <label class="form-label">Product price</label>
-      <input type="text" formControlName="price" class="form-control" />
+      <input type="number" formControlName="price" class="form-control" />
       <small
         class="text-danger"
         *ngIf="
@@ -53,7 +54,7 @@
 
     <div class="mb-3">
       <label class="form-label">Product quantity in stock</label>
-      <input type="text" formControlName="quantity" class="form-control" />
+      <input type="number" formControlName="quantity" class="form-control" />
       <small
         class="text-danger"
         *ngIf="

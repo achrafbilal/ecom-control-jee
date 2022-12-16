@@ -30,6 +30,7 @@ export class EditCustomerComponent implements OnInit {
       next: (customer) => {
         this.customerFormGroup = this.fb.group({
           id: this.fb.control(customer.id),
+          name: this.fb.control(customer.name, [Validators.required]),
           email: this.fb.control(customer.email, [
             Validators.required,
             Validators.minLength(4),
