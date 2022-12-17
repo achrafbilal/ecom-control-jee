@@ -25,4 +25,8 @@ export class ShowBillComponent implements OnInit {
         },
       });
   }
+  formatDate(date: Date) {
+    console.log(date);
+    return `${date.getFullYear()} - ${date.getMonth()} - ${date.getDate()}`;
+  }
 }

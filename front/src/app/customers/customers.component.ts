@@ -91,14 +91,14 @@ export class CustomersComponent implements OnInit {
       });
   };
   handleNewCustomer() {
-    this.router.navigateByUrl("/admin/new-customer");
+    this.router.navigateByUrl("/user/new-customer");
   }
   handleEditCustomer(customer: Customer) {
     this.router.navigateByUrl(`/admin/edit-customer/${customer.id}`);
   }
 
   handleCustomerBills = (customerID: number) => {
-    this.router.navigateByUrl(`/admin/customer-bills/${customerID}`);
+    this.router.navigateByUrl(`/user/customer-bills/${customerID}`);
     //this.customerService.getCustomerBills(customerID);
   };
 }

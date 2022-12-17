@@ -35,6 +35,29 @@ const routes: Routes = [
         path: "bills",
         component: BillsComponent,
       },
+      {
+        path: "customer-bills/:id",
+        component: BillsComponent,
+      },
+
+      {
+        path: "new-product",
+        component: NewProductComponent,
+      },
+
+      {
+        path: "new-customer",
+        component: NewCustomerComponent,
+      },
+
+      {
+        path: "new-bill",
+        component: NewBillComponent,
+      },
+      {
+        path: "show-bill/:id",
+        component: ShowBillComponent,
+      },
     ],
   },
   {
@@ -44,36 +67,16 @@ const routes: Routes = [
 
     children: [
       {
-        path: "customer-bills/:id",
-        component: BillsComponent,
-      },
-      {
-        path: "new-product",
-        component: NewProductComponent,
-      },
-      {
         path: "edit-product/:id",
         component: EditProductComponent,
-      },
-      {
-        path: "new-customer",
-        component: NewCustomerComponent,
       },
       {
         path: "edit-customer/:id",
         component: EditCustomerComponent,
       },
       {
-        path: "new-bill",
-        component: NewBillComponent,
-      },
-      {
         path: "edit-bill/:id",
         component: EditBillComponent,
-      },
-      {
-        path: "show-bill/:id",
-        component: ShowBillComponent,
       },
     ],
   },

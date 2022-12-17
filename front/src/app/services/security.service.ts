@@ -24,9 +24,14 @@ export class SecurityService {
       error: (error) => {},
     });
   }
-  hasRoleIn(roles: []): boolean {
+  hasRoleIn(roles: Array<string>): boolean {
     let userRoles = this.kcService.getUserRoles();
+    console.log(roles);
+    console.log("************");
+    console.log(userRoles);
+
     for (let role of roles) {
+      console.log(userRoles.includes(role));
       if (userRoles.includes(role)) return true;
     }
     return false;

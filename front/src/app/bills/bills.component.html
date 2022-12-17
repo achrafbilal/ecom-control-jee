@@ -1,7 +1,7 @@
 <div class="container">
   <nav
     class="p-2 m-2 border border-info"
-    *ngIf="authService.hasRoleIn([]) || true"
+    *ngIf="authService.hasRoleIn(['USER'])"
   >
     <button class="btn btn-outline-info" (click)="handleNewBill()">
       New bill
@@ -25,17 +25,17 @@
           <tr *ngFor="let p of bills">
             <td>{{ p.id }}</td>
             <td>{{ p.billingDate }}</td>
-            <td *ngIf="authService.hasRoleIn([]) || true">
+            <td>
               <button (click)="handleShowBill(p)" class="btn btn-info">
                 <i class="bi bi-eye-fill"></i>
               </button>
             </td>
-            <td *ngIf="authService.hasRoleIn([]) || true">
+            <td *ngIf="authService.hasRoleIn(['ADMIN'])">
               <button (click)="handleEditBill(p)" class="btn btn-warning">
                 <i class="bi bi-pencil"></i>
               </button>
             </td>
-            <td *ngIf="authService.hasRoleIn([]) || true">
+            <td *ngIf="authService.hasRoleIn(['ADMIN'])">
               <button (click)="handleDeleteBill(p)" class="btn btn-danger">
                 <i class="bi bi-trash"></i>
               </button>

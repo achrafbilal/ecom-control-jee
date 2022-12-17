@@ -103,12 +103,12 @@ export class BillsComponent implements OnInit {
     });
   };
   handleNewBill() {
-    this.router.navigateByUrl("/admin/new-bill");
+    this.router.navigateByUrl("/user/new-bill");
   }
   handleEditBill(bill: Bill) {
     this.router.navigateByUrl(`/admin/edit-bill/${bill.id}`);
   }
   handleShowBill(bill: Bill) {
-    this.router.navigateByUrl(`/admin/show-bill/${bill.id}`);
+    this.router.navigateByUrl(`/user/show-bill/${bill.id}`);
   }
 }

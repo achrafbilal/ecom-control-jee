@@ -5,6 +5,7 @@ import com.bilalachraf.billingservice.entities.ProductItem;
 import com.bilalachraf.billingservice.feign.CustomerRestClient;
 import com.bilalachraf.billingservice.feign.ProductRestClient;
 import com.bilalachraf.billingservice.model.Customer;
+import com.bilalachraf.billingservice.model.Product;
 import com.bilalachraf.billingservice.repositories.BillRepository;
 import com.bilalachraf.billingservice.repositories.ProductItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +79,24 @@ public class BillingRestController {
     }
 
     @PostMapping("")
-    public Bill addBill(@RequestBody Bill bill) {
+    public Bill addBill(@RequestHeader("Authorization") String token,@RequestBody Bill bill) {
+        for (ProductItem prI:bill.getProductItems()) {
+            System.out.println(prI.getQuantity()+" x "+prI.getPrice());
+            Product product=productRestClient.getProductById(token,prI.getProductID());
+            if(product!=null){
+                if(product.getQuantity()-prI.getQuantity()>=0)
+                {
+                    product.setQuantity(product.getQuantity()-prI.getQuantity());
+                    Product p=productRestClient.updateProduct(token,product.getId(),product);
+                    System.out.println(p.getQuantity());
+                }
+                else throw new RuntimeException("The ordered quantity is not affordable");
+            }
+            else throw  new RuntimeException("Product with id "+prI.getProductID()+" not found");
+
+        }
+
+
         Bill savedBill=this.billRepository.save(bill);
         Collection<ProductItem> savedProductItems=new ArrayList<>();
         for (ProductItem item:bill.getProductItems()) {

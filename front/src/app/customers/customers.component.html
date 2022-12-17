@@ -1,7 +1,7 @@
 <div class="container">
   <nav
     class="p-2 m-2 border border-info"
-    *ngIf="authService.hasRoleIn([]) || true"
+    *ngIf="authService.hasRoleIn(['USER'])"
   >
     <button class="btn btn-outline-info" (click)="handleNewCustomer()">
       New customer
@@ -32,9 +32,10 @@
           <tr>
             <th>ID</th>
             <th>Customer name</th>
-            <th>Customer price</th>
+            <th>Customer email</th>
+
             <th>Bills</th>
-            <th colspan="2"></th>
+            <th *ngIf="authService.hasRoleIn(['ADMIN'])" colspan="2"></th>
           </tr>
         </thead>
         <tbody>
@@ -42,8 +43,7 @@
             <td>{{ p.id }}</td>
             <td>{{ p.name }}</td>
             <td>{{ p.email }}</td>
-
-            <td *ngIf="authService.hasRoleIn([]) || true">
+            <td>
               <button
                 (click)="handleCustomerBills(p.id)"
                 class="btn btn-outline-dark"
@@ -51,12 +51,12 @@
                 <i class="bi bi-currency-dollar"></i>
               </button>
             </td>
-            <td *ngIf="authService.hasRoleIn([]) || true">
+            <td *ngIf="authService.hasRoleIn(['ADMIN'])">
               <button (click)="handleEditCustomer(p)" class="btn btn-warning">
                 <i class="bi bi-pencil"></i>
               </button>
             </td>
-            <td *ngIf="authService.hasRoleIn([]) || true">
+            <td *ngIf="authService.hasRoleIn(['ADMIN'])">
               <button (click)="handleDeleteCustomer(p)" class="btn btn-danger">
                 <i class="bi bi-trash"></i>
               </button>

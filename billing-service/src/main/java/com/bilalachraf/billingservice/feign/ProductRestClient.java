@@ -5,10 +5,7 @@ import com.bilalachraf.billingservice.model.Product;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.hateoas.PagedModel;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.QueryParam;
 import java.util.Collection;
@@ -26,4 +23,10 @@ public interface ProductRestClient {
             @RequestParam(value="page") int page,
             @RequestParam(value="size") int size
             );
+
+    @PutMapping("/products/{id}")
+    Product updateProduct(
+            @RequestHeader("Authorization") String token,
+            @PathVariable Long id,
+            @RequestBody Product product);
 }

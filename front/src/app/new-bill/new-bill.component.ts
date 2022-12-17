@@ -12,6 +12,7 @@ import {
   ValidationErrors,
 } from "@angular/forms";
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-new-bill",
@@ -33,7 +34,8 @@ export class NewBillComponent implements OnInit {
     private fb: FormBuilder,
     private billService: BillService,
     private productService: ProductService,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.billFormGroup = this.fb.group({
@@ -70,7 +72,10 @@ export class NewBillComponent implements OnInit {
         productItems: this.selectedProducts,
       })
       .subscribe({
-        next: (data) => console.log(data),
+        next: (data) => {
+          console.log(data);
+          this.router.navigateByUrl("/user/bills");
+        },
         error: (err) => console.log(err),
       });
   }

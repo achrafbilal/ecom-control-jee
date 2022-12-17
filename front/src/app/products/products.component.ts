@@ -92,7 +92,7 @@ export class ProductsComponent implements OnInit {
       });
   };
   handleNewProduct() {
-    this.router.navigateByUrl("/admin/new-product");
+    this.router.navigateByUrl("/user/new-product");
   }
   handleEditProduct(product: Product) {
     this.router.navigateByUrl(`/admin/edit-product/${product.id}`);

@@ -1,7 +1,7 @@
 <div class="container">
   <nav
     class="p-2 m-2 border border-info"
-    *ngIf="authService.hasRoleIn([]) || true"
+    *ngIf="authService.hasRoleIn(['USER'])"
   >
     <button class="btn btn-outline-info" (click)="handleNewProduct()">
       New product
@@ -44,12 +44,12 @@
             <td>{{ p.price }}</td>
             <td>{{ p.quantity + " " }}unit</td>
 
-            <td *ngIf="authService.hasRoleIn([]) || true">
+            <td *ngIf="authService.hasRoleIn(['ADMIN'])">
               <button (click)="handleEditProduct(p)" class="btn btn-warning">
                 <i class="bi bi-pencil"></i>
               </button>
             </td>
-            <td *ngIf="authService.hasRoleIn([]) || true">
+            <td *ngIf="authService.hasRoleIn(['ADMIN'])">
               <button (click)="handleDeleteProduct(p)" class="btn btn-danger">
                 <i class="bi bi-trash"></i>
               </button>
