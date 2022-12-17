@@ -18,15 +18,13 @@ public class InventoryServiceApplication {
 	}
 
 	@Bean
-	CommandLineRunner start(ProductRepository productRepository, RepositoryRestConfiguration repositoryRestConfiguration)
-	{
+	CommandLineRunner start(ProductRepository productRepository, RepositoryRestConfiguration repositoryRestConfiguration) {
 		repositoryRestConfiguration.exposeIdsFor(Product.class);
-		Random random=new Random();
 		return args -> {
 
-			productRepository.save(new Product(null,"Product 1",random.nextDouble()*100,random.nextInt()*200));
-			productRepository.save(new Product(null,"Product 2",random.nextDouble()*100,random.nextInt()*200));
-			productRepository.save(new Product(null,"Product 3",random.nextDouble()*100,random.nextInt()*200));
+			productRepository.save(new Product(null,"Product 1",1500D,200));
+			productRepository.save(new Product(null,"Product 2",3000D,500));
+			productRepository.save(new Product(null,"Product 3",900000D,50));
 		};
 	}
 
