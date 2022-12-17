@@ -1,4 +1,4 @@
-<div class="container mt-3 col-md-6 offset-md-3">
+<div class="container mt-3">
   <div
     *ngIf="message.length > 0"
     class="alert alert-success alert-dismissible fade show"
@@ -12,70 +12,194 @@
       {{ message }}
     </strong>
   </div>
-  <form
-    *ngIf="billFormGroup"
-    [formGroup]="billFormGroup"
-    (ngSubmit)="handleEditBillFormSubmit()"
-  >
+  <div class="container">
     <div class="mb-3">
-      <label class="form-label">Bill ID</label>
-      <input type="text" formControlName="id" class="form-control" readonly />
+      <label class="row col-sm-12 col-md-6 col-lg-4 col-xl-3 form-label"
+        >Billing date</label
+      >
+      <input
+        type="date"
+        [ngModel]="billingDate | date : 'yyyy-MM-dd'"
+        class="form-control row col-sm-12 col-md-6 col-lg-4 col-xl-3"
+      />
     </div>
 
     <div class="mb-3">
-      <label class="form-label">Bill name</label>
-      <input type="text" formControlName="name" class="form-control" />
-      <small
-        class="text-danger"
-        *ngIf="
-          billFormGroup.controls['name'].errors &&
-          billFormGroup.controls['name'].touched
-        "
-      >
-        {{ getErrorMessage("Name", billFormGroup.controls["name"].errors) }}
-      </small>
+      <label class="form-label">Customer</label>
+      <div class="container">
+        <div class="row">
+          <div
+            class="card col-sm-12 col-md-6 col-lg-4"
+            *ngFor="let customer of pageCustomer?._embedded?.customers"
+          >
+            <div class="card-body">
+              <h5 class="card-title">{{ customer.name }}</h5>
+              <p class="card-text">
+                {{ customer.email }}
+              </p>
+              <button
+                type="button"
+                *ngIf="!isSelectedCustomer(customer.id)"
+                class="btn btn-primary"
+                (click)="setSelectedCustomer(customer.id)"
+              >
+                Select
+              </button>
+              <span
+                *ngIf="isSelectedCustomer(customer.id)"
+                class="btn bg-dark text-light text-center"
+              >
+                Selected
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="row d-flex mt-4">
+          <div class="col-4 d-flex justify-content-start">
+            <button class="btn btn-primary">Previous page</button>
+          </div>
+          <div class="col-1 d-flex justify-content-center">
+            {{ pageCustomer.page.number + 1 }} /
+            {{ pageCustomer.page.totalPages }}
+          </div>
+
+          <div class="col-3 d-flex justify-content-center">
+            {{ pageCustomer.page.size }} per page
+          </div>
+          <div class="col-4 d-flex justify-content-end">
+            <button class="btn btn-primary">Next page</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="mb-3">
-      <label class="form-label">Bill price</label>
-      <input type="text" formControlName="price" class="form-control" />
-      <small
-        class="text-danger"
-        *ngIf="
-          billFormGroup.controls['price'].errors &&
-          billFormGroup.controls['price'].touched
-        "
-      >
-        {{ getErrorMessage("Price", billFormGroup.controls["price"].errors) }}
-      </small>
+      <label class="form-label">Products</label>
+      <div class="container">
+        <div class="row">
+          <div
+            class="card col-sm-12 col-md-6 col-lg-4"
+            *ngFor="let product of pageProduct?._embedded?.products"
+            [ngClass]="
+              isSelectedProduct(product.id) ? 'border border-success' : ''
+            "
+          >
+            <div class="card-body">
+              <h5 class="card-title">{{ product.name }}</h5>
+              <div class="card-text row mb-3">
+                <div class="col-6">{{ product.price }} Dhs</div>
+                <div class="col-6 d-flex justify-content-end">
+                  {{ product.quantity }} Left
+                </div>
+              </div>
+              <div class="row d-flex justify-content-between">
+                <select
+                  [ngModel]="product.quantity"
+                  (change)="setQuantityFor($event.target, product.id)"
+                  class="form-select mt-2"
+                  *ngIf="isSelectedProduct(product.id)"
+                >
+                  <option
+                    [value]="item"
+                    *ngFor="let item of range(product.quantity)"
+                  >
+                    {{ item }}
+                  </option>
+                </select>
+                <button
+                  *ngIf="!isSelectedProduct(product.id) && product.quantity > 0"
+                  type="button"
+                  class="btn btn-success col-xs-12 col-sm-6 col-md-5 col-lg-4 col-xl-3 mt-2"
+                  (click)="editSelectedProduct(product.id, product.price)"
+                >
+                  Edit
+                </button>
+
+                <button
+                  *ngIf="isSelectedProduct(product.id)"
+                  type="button"
+                  class="btn btn-danger col-xs-12 col-sm-6 col-md-5 col-lg-4 col-xl-3 mt-2"
+                  (click)="removeSelectedProduct(product.id)"
+                >
+                  Remove
+                </button>
+
+                <!-- <input
+                  class="col-xs-12 col-sm-6 col-md-5 col-lg-4 col-xl-3"
+                  [max]="product.quantity"
+                  [value]="product.quantity > 0 ? 1 : 0"
+                  type="number"
+                  (input)="setQuantityFor($event.target, product.id)"
+                /> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row d-flex mt-4">
+          <div class="col-4 d-flex justify-content-start">
+            <button class="btn btn-primary">Previous page</button>
+          </div>
+          <div class="col-1 d-flex justify-content-center">
+            {{ pageProduct.page.number + 1 }}
+            /
+            {{ pageProduct.page.totalPages }}
+          </div>
+
+          <div class="col-3 d-flex justify-content-center">
+            {{ pageProduct.page.size }} per page
+          </div>
+          <div class="col-4 d-flex justify-content-end">
+            <button class="btn btn-primary">Next page</button>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="mb-3">
-      <label class="form-label">Promoted</label>
-      <input type="checkbox" formControlName="promotion" class="form-check" />
-      <small
-        class="text-danger"
-        *ngIf="
-          billFormGroup.controls['promotion'].errors &&
-          billFormGroup.controls['promotion'].touched
-        "
-      >
-        {{
-          getErrorMessage(
-            "Promotion",
-            billFormGroup.controls["promotion"].errors
-          )
-        }}
-      </small>
-    </div>
     <div class="mb-3">
       <button
         type="submit"
         class="btn btn-outline-warning"
-        [disabled]="!billFormGroup.valid"
+        (click)="handleEditBillFormSubmit()"
       >
         Edit bill
       </button>
     </div>
-  </form>
+    <div
+      class="modal fade"
+      id="productQuantityModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="productQuantityModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="productQuantityModalLabel">
+              Product {{ selectedProductID }} quantity
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

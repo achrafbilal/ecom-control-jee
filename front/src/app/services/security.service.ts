@@ -17,7 +17,6 @@ export class SecurityService {
         if (e.type == KeycloakEventType.OnAuthSuccess) {
           this.kcService.loadUserProfile().then((profile) => {
             this.profile = profile;
-            console.log(profile);
           });
         }
       },
@@ -26,12 +25,8 @@ export class SecurityService {
   }
   hasRoleIn(roles: Array<string>): boolean {
     let userRoles = this.kcService.getUserRoles();
-    console.log(roles);
-    console.log("************");
-    console.log(userRoles);
 
     for (let role of roles) {
-      console.log(userRoles.includes(role));
       if (userRoles.includes(role)) return true;
     }
     return false;

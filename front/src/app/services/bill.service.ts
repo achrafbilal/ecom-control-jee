@@ -27,11 +27,8 @@ export class BillService implements OnInit {
     return this.httpClient.post<Bill>(`${this.BaseURI}`, bill);
   }
 
-  public editBill(id: number, name: string, email: string): Observable<Bill> {
-    return this.httpClient.put<Bill>(`${this.BaseURI}/${id}`, {
-      name: name,
-      email: email,
-    });
+  public editBill(bill: Bill): Observable<Bill> {
+    return this.httpClient.put<Bill>(`${this.BaseURI}/${bill.id}`, bill);
   }
 
   public getBillById(id: number): Observable<Bill> {

@@ -54,7 +54,7 @@ export class CustomerService implements OnInit {
     this.lastPageSize = size;
     this.lastKeyword = keyword;
     return this.httpClient.get<PageCustomer>(
-      `${this.BaseURI}?keyword=${keyword}&page=${page}&size=${size}`
+      `${this.BaseURI}/search/keyword?name=${keyword}&email=${keyword}&page=${page}&size=${size}`
     );
   }
 

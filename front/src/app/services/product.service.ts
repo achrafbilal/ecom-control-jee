@@ -54,7 +54,7 @@ export class ProductService implements OnInit {
     this.lastPageSize = size;
     this.lastKeyword = keyword;
     return this.httpClient.get<PageProduct>(
-      `${this.BaseURI}?keyword=${keyword}&page=${page}&size=${size}`
+      `${this.BaseURI}/search/keyword?name=${keyword}&page=${page}&size=${size}`
     );
   }
 
