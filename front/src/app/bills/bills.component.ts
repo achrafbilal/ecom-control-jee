@@ -48,6 +48,7 @@ export class BillsComponent implements OnInit {
     if (bill.id)
       if (confirm("Are you sure you want to delete this bill")) {
         this.billService.deleteBill(bill.id).subscribe((d) => {
+          console.log(d);
           this.billService
             .getPageBills(this.currentPage, this.pageSize)
             .subscribe({

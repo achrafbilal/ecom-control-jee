@@ -106,5 +106,10 @@ public class BillingRestController {
         savedBill.setProductItems(savedProductItems);
         return savedBill;
     }
+    @DeleteMapping("/{id}")
+    public void deleteBill(@PathVariable Long id)
+    {
+        billRepository.deleteById(id);
+    }
 
 }

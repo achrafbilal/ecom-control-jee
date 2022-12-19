@@ -64,7 +64,8 @@ export class NewBillComponent implements OnInit {
     return "";
   }
   handleNewBillFormSubmit() {
-    console.log(this.billingDate, this.selectedCustomer, this.selectedProducts);
+    alert(this.billingDate);
+    return;
     this.billService
       .addBill({
         billingDate: this.billingDate,
@@ -73,7 +74,6 @@ export class NewBillComponent implements OnInit {
       })
       .subscribe({
         next: (data) => {
-          console.log(data);
           this.router.navigateByUrl("/user/bills");
         },
         error: (err) => console.log(err),
@@ -83,7 +83,6 @@ export class NewBillComponent implements OnInit {
     this.message = "";
   }
   setSelectedCustomer(customerID: number) {
-    console.log(customerID);
     this.selectedCustomer = customerID;
   }
   addSelectedProduct(productID: number, price: number) {
@@ -112,9 +111,13 @@ export class NewBillComponent implements OnInit {
     if (prodItemIndex >= 0) {
       this.selectedProducts[prodItemIndex].quantity = Number(target.value);
     }
-    console.log(this.selectedProducts);
   }
   range(n: number) {
     return [...Array(n + 1).keys()].slice(1);
+  }
+  setDateValue(target: EventTarget) {
+    console.log(target);
+
+    //this.billingDate = date;
   }
 }

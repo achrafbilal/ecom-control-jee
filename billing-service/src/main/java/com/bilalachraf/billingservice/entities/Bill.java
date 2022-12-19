@@ -16,7 +16,7 @@ public class Bill {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Date billingDate;
-    @OneToMany(mappedBy = "bill")
+    @OneToMany(mappedBy = "bill",cascade = CascadeType.ALL)
     private Collection<ProductItem> productItems;
     private Long customerID;
     @Transient

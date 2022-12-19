@@ -10,4 +10,5 @@ import java.util.Collection;
 @RepositoryRestResource
 public interface ProductItemRepository extends JpaRepository<ProductItem,Long> {
     Collection<ProductItem> findAllByBillId(Long id);
+    Collection<ProductItem> deleteAllByBillId(Long billId);
 }
