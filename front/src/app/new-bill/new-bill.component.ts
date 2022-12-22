@@ -13,6 +13,7 @@ import {
 } from "@angular/forms";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { formatDate } from "@angular/common";
 
 @Component({
   selector: "app-new-bill",
@@ -39,7 +40,9 @@ export class NewBillComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.billFormGroup = this.fb.group({
-      billingDate: this.fb.control(new Date(), [Validators.required]),
+      billingDate: this.fb.control(formatDate(new Date(), "yyyy-MM-dd", "en"), [
+        Validators.required,
+      ]),
     });
     this.productService.getPageProductsByKeyword("", 0, 100).subscribe({
       next: (data) => {
@@ -64,16 +67,18 @@ export class NewBillComponent implements OnInit {
     return "";
   }
   handleNewBillFormSubmit() {
-    alert(this.billingDate);
-    return;
+    const { billingDate } = this.billFormGroup.controls;
+    console.log(billingDate.value);
+
     this.billService
       .addBill({
-        billingDate: this.billingDate,
+        billingDate: billingDate.value,
         customerID: this.selectedCustomer,
         productItems: this.selectedProducts,
       })
       .subscribe({
         next: (data) => {
+          console.log(data);
           this.router.navigateByUrl("/user/bills");
         },
         error: (err) => console.log(err),

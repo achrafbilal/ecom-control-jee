@@ -13,13 +13,13 @@
     </strong>
   </div>
   <div class="container">
-    <div class="mb-3">
+    <form class="mb-3" [formGroup]="billFormGroup">
       <label class="row col-sm-12 col-md-6 col-lg-4 col-xl-3 form-label"
         >Billing date</label
       >
       <input
         type="date"
-        [ngModel]="billingDate | date : 'yyyy-MM-dd'"
+        formControlName="billingDate"
         class="form-control row col-sm-12 col-md-6 col-lg-4 col-xl-3"
       />
       <small
@@ -36,7 +36,7 @@
           )
         }}
       </small>
-    </div>
+    </form>
 
     <div class="mb-3">
       <label class="form-label">Customer</label>
