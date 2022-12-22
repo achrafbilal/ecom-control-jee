@@ -20,11 +20,15 @@ The project is distributed using spring microservice architecture
 
 ## Report
 
-[embed]https://github.com/achrafbilal/ecom-control-jee/blob/main/Controle_JEE_Rapport.pdf [/embed]
+[embed]https://drive.google.com/file/d/161TQKIJqZMYSm1LrQZzB5kFEzAgyN2iU/view?usp=share_link[/embed]
 
-### Report Link
+### Github Report Link
 
 https://github.com/achrafbilal/ecom-control-jee/blob/main/Controle_JEE_Rapport.pdf
+
+### Google Drive Report Link
+
+https://drive.google.com/file/d/161TQKIJqZMYSm1LrQZzB5kFEzAgyN2iU/view?usp=share_link
 
 ### Installing
 
