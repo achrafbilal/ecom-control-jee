@@ -6,7 +6,6 @@ This project is created in response to a school examination
 
 Spring Boot MicroServices + Eureka Discovery + Gateway Service + Config Service + Keycloak Integration + Angular client
 
-## Getting Started
 
 ### Dependencies
 
@@ -19,7 +18,13 @@ The project is distributed using spring microservice architecture
 - Inventory Service
 - Billing Service
 
-[embed]https://github.com/achrafbilal/ecom-control-jee/blob/main/Controle_JEE_Rapport.pdf[/embed]
+## Report
+
+[embed]https://github.com/achrafbilal/ecom-control-jee/blob/main/Controle_JEE_Rapport.pdf [/embed]
+
+### Report Link
+
+https://github.com/achrafbilal/ecom-control-jee/blob/main/Controle_JEE_Rapport.pdf
 
 ### Installing
 
