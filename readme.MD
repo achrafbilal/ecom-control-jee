@@ -19,7 +19,7 @@ The project is distributed using spring microservice architecture
 - Inventory Service
 - Billing Service
 
-[embed]https://github.com/achrafbilal/ecom-control-jee/blob/main/Controle_JEE_Rapport.pdf
+[embed]https://github.com/achrafbilal/ecom-control-jee/blob/main/Controle_JEE_Rapport.pdf[/embed]
 
 ### Installing
 
